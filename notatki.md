@@ -13,7 +13,7 @@ SonarQube - do inspekcji kodu w CI/CD
 * `git rm <nazwa_pliku>` – przestajemy śledzić plik
 AI command line – Crash?
 
-### LSF do dużych plików > 300 MB
+### LFS do dużych plików > 300 MB
 ```
 git lfs install
 git lfs track "*.zip"
@@ -39,12 +39,16 @@ Takie duże pliki można pobrać używając `git lfs pull`
 
 ### git stash
 
-
 `git stash`
 `git stash pop`
 `git stash list` – lista stash-y
 `git stash show` – pokazuje diffa
 
+## Testy automatyczne
+
+`python -m unittest discover -s tests` – jak testy są w podktalogu `tests`, a nie luzem w głównym katalogu. Plik z testem powinien zaczynać się od `tests_`.
+
+`pytest` potrafi uruchomić też testy napisane w `unittest`
 
 ---
 
