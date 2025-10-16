@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock, patch
 from myapp.calculator import Calculator
 from myapp.user_service import UserService
+# from myapp.errors import UserNotFoundError
 
 class CalculatorTest(unittest.TestCase):
     def setUp(self):
