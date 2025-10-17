@@ -4,6 +4,7 @@ inspekcje kodu dobrze robi się GitLab-ie
 SonarQube - do inspekcji kodu w CI/CD
 
 ---
+## GIT
 
 * `git switch -` – wraca na poprzednią gałąź
 * `git log -p` – pokazuje diff-y w logu
@@ -14,6 +15,7 @@ SonarQube - do inspekcji kodu w CI/CD
 AI command line – Crash?
 
 ### LFS do dużych plików > 300 MB
+
 ```
 git lfs install
 git lfs track "*.zip"
@@ -50,9 +52,28 @@ Takie duże pliki można pobrać używając `git lfs pull`
 
 `pytest` potrafi uruchomić też testy napisane w `unittest`
 
+## Jenkins
+
+- Agent powinien być zupełnie oddzielnie od mastera
+- Master jest od zarząądzania użytkownikami, pluginami, nie ma mieć runnerów ( nie ma uruchmiać job-ów)
+
+- Używać Javy - 17, 21 - na agencie i na masterze ma być ta sama wersja
+- Na agencie nie instaluje się Jenkinsa, tylko Jave
+- Przy instalacji sugerowanych wtyczek jest sporo przestarzałych wtyczek
+- `number of execitors` na masterze ustawić na 0, na agencie tyle ile się chce (tyle ile wątków procesora -1)
+- Maszyna Ubuntu, na nim użytkownik Jenkins, na nim tylko środowisko (np. docker, pytest, python itp.)
+- Agentów ustawiamy na masterze w zakładce Nodes
+- Lepiej używać SSH  do połączenia z agentem (trudniej skonfigurować, ale lepiej działa, z kontrolerem jest dużo zamieszania) 
+
+- CRON - https://crontab.guru/
+
+- opis pipelinów w groovy najlepiej zlecić czatowi, albo w VS Code z linterem
+- 
+
 ---
 
 ### Sprawdzić:
+
 - GitLab Duo
 - git protect - przenoszenie repo na inne serwery, backup między serwerami
 - SonarQube w IDE
