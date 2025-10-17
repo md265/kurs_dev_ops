@@ -3,7 +3,10 @@ prometheus, grafana - do metryk kodu
 inspekcje kodu dobrze robi się GitLab-ie
 SonarQube - do inspekcji kodu w CI/CD
 
+https://github.com/integrivo/git_intro_v2
+
 ---
+
 ## GIT
 
 * `git switch -` – wraca na poprzednią gałąź
@@ -83,3 +86,6 @@ Takie duże pliki można pobrać używając `git lfs pull`
 
 
 board.net
+
+https://www.alx.pl/ankiety/7575mhks
+https://drive.proton.me/urls/P5PFSBZ3A8#2HKa351Xqzf9
