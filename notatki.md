@@ -71,7 +71,11 @@ Takie duże pliki można pobrać używając `git lfs pull`
 - CRON - https://crontab.guru/
 
 - opis pipelinów w groovy najlepiej zlecić czatowi, albo w VS Code z linterem
-- 
+
+### Agent
+- Nie ma dla niego specjalnych wymagań poza tym, że mam mieć JRE w tej samej wersji,  co master
+- git jest uruchamiany na agencie
+- Wyniki job-a zostają na dysku agenta
 
 ---
 
@@ -89,3 +93,5 @@ board.net
 
 https://www.alx.pl/ankiety/7575mhks
 https://drive.proton.me/urls/P5PFSBZ3A8#2HKa351Xqzf9
+
+https://github.com/integrivo/projekt-alx
