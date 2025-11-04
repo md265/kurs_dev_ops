@@ -1,0 +1,7 @@
+table inet filter {
+  chain input {
+    type filter hook input priority filter; policy drop;
+
+{% for ip in ansible_play_hosts | map('ansible.builtin.extract', hostvars, 'zmienna') %}
+   ip daddr {{ ip }} accept
+{% endfor %}

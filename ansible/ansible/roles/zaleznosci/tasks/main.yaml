@@ -1,0 +1,26 @@
+- name: Instalacja ntp
+  package:
+    name: chrony
+
+- name: Konfiguracja ntp
+  copy:
+    src: tempus_gum_gov_pl.conf
+    dest: /etc/chrony/conf.d/tempus_gum_gov_pl.conf
+#  register: chrony_conf # nasza nazwa zmiennej
+  notify: Restart ntp
+#- debug:
+#    var: chrony_conf
+
+#- name: Restart ntp
+#  systemd_service:
+#    name: chrony
+#    state: restarted
+#    enabled: true
+#  when: chrony_conf.changed
+
+- name: Start ntp
+  systemd_service:
+    name: chrony
+    state: started
+    enabled: true
+#  when: not chrony_conf.changed

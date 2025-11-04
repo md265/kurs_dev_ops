@@ -1,0 +1,13 @@
+<!doctype html>
+<title>Cześć!</title>
+<h1>Strona Główna</h1>
+<p>Komputer:{{ ansible_facts.nodename }}</p>
+<p>Paczki:
+{% if ansible_facts.os_family == 'Debian' %}
+  deb
+{% elif ansible_facts.os_family == 'RedHat' %}
+  rpm
+{% else %}
+ jakieś inne
+{% endif %}
+</p>

@@ -1,0 +1,9 @@
+- name: Instalujemy tcpdump
+  package:
+    name: tcpdump
+    state: present
+
+#- name: Potykamy się o krawężnik
+#  command:
+#    cmd: 'false'
+

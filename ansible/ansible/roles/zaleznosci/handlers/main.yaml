@@ -1,0 +1,4 @@
+- name: Restart ntp
+  systemd_service:
+    name: chrony
+    state: restarted

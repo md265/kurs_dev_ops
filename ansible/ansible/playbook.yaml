@@ -1,0 +1,13 @@
+- hosts: 02worker
+  become: true
+  roles:
+   - zaleznosci
+
+#- hosts: all
+#  become: true
+#  roles:
+#    - klucz_ssh
+#    - przyklad
+#    - web
+
+

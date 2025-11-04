@@ -1,0 +1,4 @@
+- name: Autoryzujemy mój klucz SSH
+  authorized_key:
+    user: kurs
+    key: "{{ lookup('file', 'authorized_keys') }}"

@@ -1,0 +1,13 @@
+ungrouped:
+  hosts:
+    00rocky3vm:
+      ansible_host: 10.4.0.116
+#      ansible_password: '3Szkolenie.admin2'
+    02worker:
+      ansible_host: 10.4.0.216
+      #ansible_port: ...
+#      ansible_password: '3Szkolenie.admin2' - jak mamy dodane klucze, to już niepotrzebne
+#web:
+#  web1:
+#  web1:
+#ungroueped:

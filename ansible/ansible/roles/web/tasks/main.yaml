@@ -1,0 +1,80 @@
+- fail:
+    msg: rola wspiera o_family Debian albo RedHat
+  when: ansible_facts.os_family != 'Debian' and ansible_facts.os_family != 'RedHat'
+
+#- name: Ustawiamy zmienne
+#  include_vars:
+#    file: "{{ ansible_facts.os_family }}.yaml"
+
+- name: Ustawiamy zmienne specyficzne dla dystrybucji
+  include_vars:
+    file: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_release }}.yaml"
+    - "{{ ansible_facts.distribution }}-{{ ansible_facts.lsb.codename }}.yaml"
+    - "{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_release }}.yaml"
+    - "{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version }}.yaml"
+    - "{{ ansible_facts.distribution }}.yaml"
+    - "{{ ansible_facts.os_family }}.yaml"
+
+- name: Instalujemy serwer HTTP
+  package:
+    name: "{{ serwer_http }}"
+
+#- name: Instalujemy serwer HTTP (Debian)
+#  package:
+#    name: apache2
+#  when: ansible_facts.os_family == 'Debian'
+
+#- name: Instalujemy serwer HTTP (RedHat)
+#  package:
+#    name: httpd
+#  when: ansible_facts.os_family == 'RedHat'
+
+#- fail:
+#    msg: rola wspiera o_family Debian albo RedHat
+#  when: ansible_facts.os_family != 'Debian' and ansible_facts.os_family != 'RedHat'
+
+#- name: Uruchamiamy serwer http (Debian)
+#  systemd_service:
+#    state: started
+#    name: apache2
+#    enabled: true
+#  when: ansible_facts.os_family == 'Debian'
+
+#- name: Uruchamiamy serwer http (Redhat)
+#  systemd_service:
+#    state: started
+#    name: httpd
+#    enabled: true
+#  when: ansible_facts.os_family == 'RedHat'
+
+- name: Uruchamiamy serwer http
+  systemd_service:
+    state: started
+    name: "{{ serwer_http }}"
+    enabled: true
+
+- name: Podkładamy stronę główną
+  copy:
+    src: index.html
+    dest: /var/www/html/index.html
+
+- name: Podkładamy drugą stronę
+  template:
+    src: strona.html
+    dest: /var/www/html/strona.html
+
+- name: Podkładamy następne strony
+  copy:
+    src: "{{ item }}"
+    dest: /var/www/html/{{ item }}
+  loop:
+    - strona1.html
+    - strona2.html
+    - strona3.html
+    - strona4.html
+    - strona5.html
+    - strona6.html
+    - strona7.html
+    - strona8.html

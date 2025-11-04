@@ -1,0 +1,14 @@
+- hosts: all
+  become: true
+  tasks:
+    - set_fact:
+        zmienna: "mój adres IPv4: {{ ansible_facts.default_ipv4.address }}"
+    - debug:
+        msg: "{{ ansible_play_hosts | map('ansible.builtin.extract', hostvars, 'zmienna') }}" # bieżemy listę hostów, żeby była kluczami dla zmiennej hostvars i z każdej z 
+      delegate_to: localhost # będzie uruchomiony tylko na naszym głownym komputerze
+      run_once: true # i tylko raz
+    - template:
+        src: templejt
+        dest: /etc/nft.example.conf
+      delegate_to: 02worker
+      run_once: true
