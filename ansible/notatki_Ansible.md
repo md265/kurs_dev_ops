@@ -26,8 +26,15 @@ touch .ansible.cfg - tworzymy nowy plik konfiguracyjny
 - używać modułu fail, żeby przerywać wykonywanie, jak coś jest nie tak
 - do template-ów język jinja2 https://jinja.palletsprojects.com/en/stable/templates/
 
+- Moduł `authorized_key` do wgrywania kluczy ssh
+- flaga `-l <nazwa_maszyny>` uruchamia tylko na wybranej maszynie
+- Moduł `lineinfile` dopisuje coś do pliku
+- lepiej nie używać _handlerów_ tylko register-when, bo wtedy zawsze widać, czy są pomijane, czy używane (a przy notify się w ogóle może nie pojawiać)
 
+- `ansible-galaxy collection` - repozytorium z kolekcjami
+- Można używać gotowych kolekcji, albo tworzyć własne. Kolekcja to zbiór pluginów.
 
-
-Uważać na `'no'` w yaml-u bo to oznaczas false, więc trzeba w cudzysłowach lub apostrofach, żeby interpretował jako test
+Uważać na 'no' w yaml-u bo to oznaczas false, więc trzeba w cudzysłowach lub apostrofach, żeby interpretował jako test
 Font iosevka
+_Zuul_ system CI do Ansible
+fish shell
