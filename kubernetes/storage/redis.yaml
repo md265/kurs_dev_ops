@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  serviceName: redis
+  selector:
+    matchLabels:
+      service: redis
+  template:
+    metadata:
+      labels:
+        service: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis/redis-stack:6.2.6-v19
+        ports:
+        - containerPort: 6379
+          name: redis
+        - containerPort: 8001
+          name: insights
+        env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: redis-secret
+              key: password
+        - name: REDIS_ARGS
+          value: "--requirepass $(REDIS_PASSWORD)"
+        volumeMounts:
+        - name: redis-data
+          mountPath: /data
+      volumes:
+      - name: redis-data
+        # emptyDir: {}  # opcja 1 - tyle żyje, ile żyje pod
+        # hostPath:                 #
+        #   type: DirectoryOrCreate # - opcja 2 - hostPath - pisanie po dysku nod-a
+        #   path: /tmp/redis-data   #
+        persistentVolumeClaim:
+          claimName: redis-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  ports:
+  - port: 6379
+    name: redis
+  # this makes its headless and without IP
+  clusterIP: None
+  selector:
+    service: redis

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: basic-nginx
+spec:
+  type: NodePort
+  # których podów dotyczy nodeport 
+  selector:
+    training: devops
+    company: pirates
+  ports:
+  - port: 8080
+    targetPort: 80
+    nodePort: 30080

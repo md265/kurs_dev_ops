@@ -1,0 +1,3 @@
+database:
+  host: db01.cluster
+  tls: disabled

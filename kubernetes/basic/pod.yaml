@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: basic-nginx
+  labels:
+    training: devops
+spec:
+  containers:
+  - name: c1
+    image: nginx:1.27
+    

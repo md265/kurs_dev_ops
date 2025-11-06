@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basic-nginx-ha
+spec:
+  replicas: 3
+  # oczekiwania
+  selector:
+    matchLabels:
+      training: devops
+      company: pirates
+  # jakie labelki będą mieć nasze pody
+  template:
+    metadata:
+      labels:
+        training: devops
+        company: pirates
+        ver: "123"
+    spec:
+      containers:
+        - name: c1
+          image: nginx

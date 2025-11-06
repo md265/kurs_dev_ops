@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: infov6
+    annotations:
+      kubernetes.io/change-cause: "upgrade to 6.7.1 - fixed"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: frontend
+      env: dev
+  template: # pod definition goes here
+      metadata:    
+        labels:
+            tier: frontend
+            env: dev
+      spec:
+          containers:
+          - name: info
+            image: stefanprodan/podinfo:6.7.1
+            ports:
+            - containerPort: 9898
+          - name: net-tools
+            image: nicolaka/netshoot
+            command: ["/bin/bash"]
+            args: ["-c", "while true; do curl localhost:9898/version; sleep 15;done"]
