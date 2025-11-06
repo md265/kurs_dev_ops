@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:16
+    ports:
+     - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./messages.sql:/docker-entrypoint-initdb.d/messages.sql
+    secrets:
+      - db-password
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - POSTGRES_USER=api
+  api:
+    image: go-app:v2
+    ports:
+    - 8080:8080
+    secrets:
+    - db-password
+    environment:
+     - DB_USER=api
+     - DB_PASSWORD_FILE=/run/secrets/db-password
+     - DB_HOST=postgres
+     - DB_PORT=5432
+volumes:
+  db-data:
+secrets:
+  db-password:
+    file: /tmp/db-password.txt
