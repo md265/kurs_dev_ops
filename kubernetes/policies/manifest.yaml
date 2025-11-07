@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: experiments
+  labels:
+    experiment: v1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-info
+  namespace: experiments
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: pod
+      app: info
+  template:
+    metadata:
+      labels:
+        component: pod
+        app: info
+    spec:
+      containers:
+        - name: c1
+          image: stefanprodan/podinfo
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: podinfo-svc
+    namespace: experiments
+spec:
+  selector:
+    component: pod
+    app: info
+  ports:
+    - name: http
+      port: 9898
+      targetPort: 9898

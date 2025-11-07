@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-multi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+      tier: frontend
+  template:
+    metadata:
+      labels:
+         app: nginx
+         tier: frontend
+    spec:
+      containers:
+        - name: ng
+          image: nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-svc
+spec:
+  type: LoadBalancer
+  selector:
+     app: nginx
+     tier: frontend
+  ports:
+    - targetPort: 80
+      port: 8081

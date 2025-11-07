@@ -36,11 +36,20 @@ spec:
       volumes:
       - name: redis-data
         # emptyDir: {}  # opcja 1 - tyle żyje, ile żyje pod
-        # hostPath:                 #
-        #   type: DirectoryOrCreate # - opcja 2 - hostPath - pisanie po dysku nod-a
-        #   path: /tmp/redis-data   #
-        persistentVolumeClaim:
-          claimName: redis-pvc
+        # hostPath:                 # \
+        #   type: DirectoryOrCreate #  | - opcja 2 - hostPath - pisanie po dysku nod-a
+        #   path: /tmp/redis-data   # /
+        # persistentVolumeClaim:  # \
+        #   claimName: redis-pvc  #  - opcja 3
+  volumeClaimTemplates:                   # \
+    - metadata:                           #  |             
+        name: redis-data                  #  |
+      spec:                               #  |
+        accessModes: [ "ReadWriteOnce" ]  #  | - opcja 4
+        storageClassName: "nfs-client"    #  |
+        resources:                        #  |
+          requests:                       #  |
+            storage: 1Gi                  # /
 ---
 apiVersion: v1
 kind: Service

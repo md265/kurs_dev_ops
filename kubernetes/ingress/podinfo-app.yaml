@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-info-public
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: pod
+      app: info-public
+  template:
+    metadata:
+      labels:
+        component: pod
+        app: info-public
+    spec:
+      containers:
+        - name: c1
+          image: stefanprodan/podinfo
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: podinfo-public-svc
+spec:
+  selector:
+    component: pod
+    app: info-public
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 9898

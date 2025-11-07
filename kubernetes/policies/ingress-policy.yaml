@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: only-experiments
+  namespace: experiments
+spec:
+  podSelector: 
+    matchLabels:
+      app: info
+      component: pod
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+      - namespaceSelector:
+          # matchLabels:
+          #   experiment: default
+          matchExpressions:
+           - key: experiment
+             operator: In
+             values: ["default","v1"]
