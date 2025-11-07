@@ -121,9 +121,9 @@ ctrl + l - przewijanie konsoli
 `mkdir -p`  tworzy całe drzewo katalogów
 
 
+---
 
-
---- Kubernetes
+# Kubernetes
 
 - OCI - format obrazów
 - Borg - alternatywa Kubernetesa od Google
@@ -191,3 +191,39 @@ ctrl + l - przewijanie konsoli
 - Gitops
 - en.wikipedia.org/wiki/Hetzner - tańsza chmura
 - docs.tigera.io/calico
+
+- cluster ip - umożliwia komunikację wewnątrz klastra
+- node port - umożliwia wpuszcznie ruchusieciowego do klastra
+- load balancer też używa node port-u
+
+---
+
+- do lokalnego użytku (np. testy w CI) zamiast minikube lepiej użyć kind (https://kind.sigs.k8s.io/)
+- `microk8s`, `k3s` - ma takie same API jak Kubernetes, ale pod spodem dziaął inaczej (korzysta z innej bazy danych itp.)
+- https://github.com/kelseyhightower/kubernetes-the-hard-way - instrukcja jak postawić od zera Kubernetes-a
+- https://github.com/kubernetes-sigs/kubespray - narzędzie ułatwiające instalację K8s
+
+
+## Kubernetes na bare metal
+- nie chcemy używać swap - chcemy mieć przewidywalną wydajność
+- włączamy forwardowanie ipv4, żeby poprawnie przekazywać ruch między sieciami
+- używamy systemd do zarządzania grupami kontrolnymi (cgroups)
+- `kubelet` - agent zarządzający kontenerami zgodnie z instrukcjami kotrolra
+- `kubectl` - do komunikacji z klastrem
+- `kubeadm` - do inicjalizacji i konfuguracji klastra
+
+- niewidoczny kontener "pause" jest po to, żeby nie starcić adresu ip czy restartach kontenera
+- `scp $CP:/home/kurs/.kube/config $HOME/.kube/config` - dzięki temu możemy z naszego lokalnego  kubectl możemy wysyłać do control-plane na serwerze 00control
+
+
+## Helm
+- packet manager dla Kubernetes-a
+- chart - instrukcja z parametrami dla Kubernetes-a. Można wyeksportować wiele yaml-i do chart-a w formacie OCI (jak w Docker)
+- k9s (k9scli.io) - terminalowy dobry UI do zarządzania klastrami
+
+-
+
+
+## Inne:
+- `watch` - cykliczne wywoływanie jakiejś komendy 
+- Calico
